@@ -5,6 +5,7 @@ import { storage, manifest } from "@vendetta/plugin";
 import Settings from "./components/Settings";
 import { DefaultNativeEvent, DoubleTapStateProps, Plugin, NativeEvent } from "./def";
 import { findInReactTree } from "@vendetta/utils";
+import {logger} from "@vendetta";
 
 const ChatInputRef = findByProps("insertText");
 const ChannelStore = findByStoreName("ChannelStore");
@@ -79,7 +80,8 @@ const BetterChatGestures: Plugin = {
             let timeoutTap = setTimeout(() => {
                 this.currentTapIndex = 0;
                 this.currentMessageAuthor = null;
-            }, storage.delay);
+            }, Number(storage.delay));
+            //    ^ oh my god
 
             const channel = ChannelStore.getChannel(ChannelID);
             const message = MessageStore.getMessage(ChannelID, MessageID);
@@ -150,6 +152,8 @@ const BetterChatGestures: Plugin = {
     },
 
     onLoad() {
+        logger.log("BetterChatGestures: storage.delay at ", storage.delay, " with type ", typeof(storage.delay))
+
         // initialize
         storage.tapUsernameMention ??= ReactNative.Platform.select({
             android: false,
@@ -158,7 +162,10 @@ const BetterChatGestures: Plugin = {
         });
         storage.reply ??= true;
         storage.userEdit ??= true;
-        storage.delay ??= 300;
+        storage.delay ??= "300";
+        //                  ^ this is horrible
+        // and this might be even worse
+        if (storage.delay === "") storage.delay = "300"
 
         const self = this;
         const origGetParams = Object.getOwnPropertyDescriptor(MessagesHandlers.prototype, "params").get;

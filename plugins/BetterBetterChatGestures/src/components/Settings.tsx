@@ -54,10 +54,10 @@ const styles = stylesheet.createThemedStyleSheet({
 export default () => {
    useProxy(storage);
 
-   const [tapUsernameMention, setTapUsernameMention] = React.useState(storage.tapUsernameMention);
-   const [reply, setReply] = React.useState(storage.reply);
-   const [userEdit, setUserEdit] = React.useState(storage.userEdit);
-   const [delay, setDelay] = React.useState(storage.delay);
+   // const [tapUsernameMention, setTapUsernameMention] = React.useState(storage.tapUsernameMention);
+   // const [reply, setReply] = React.useState(storage.reply);
+   // const [userEdit, setUserEdit] = React.useState(storage.userEdit);
+   // const [delay, setDelay] = React.useState(storage.delay);
    const isAndroid = ReactNative.Platform.OS === "android"
 
    return <ScrollView>
@@ -72,13 +72,12 @@ export default () => {
                   label="Tap Username to Mention"
                   subLabel={`Allows you to tap on a username to mention them instead of opening their profile.${isAndroid ? "This option is disabled on Android." : ""}`}
                   onLongPress={() => Miscellaneous.displayToast(`By default, Discord opens a profile when tapping on a username in chat. With this, it now mentions them, like on Android.`, 'tooltip')}
-                  leading={<FormRow.Icon style={styles.icon} source={tapUsernameMention ? Icons.Forum : Icons.Failed} />}
+                  leading={<FormRow.Icon style={styles.icon} source={storage.tapUsernameMention ? Icons.Forum : Icons.Failed} />}
                   trailing={<FormSwitch
-                     value={isAndroid ? false : tapUsernameMention}
+                     value={isAndroid ? false : storage.tapUsernameMention}
                      onValueChange={() => {
                         if (isAndroid) return;
                         storage.tapUsernameMention = !storage.tapUsernameMention;
-                        setTapUsernameMention(storage.tapUsernameMention);
                      }}
                   />}
                   disabled={isAndroid}
@@ -88,35 +87,32 @@ export default () => {
                   label={`Double Tap To Reply`}
                   subLabel={`Allows you to tap double tap on any messages to reply to them.`}
                   onLongPress={() => Miscellaneous.displayToast(`When double tapping on any messages, you can now reply to them!`, 'tooltip')}
-                  leading={<FormRow.Icon style={styles.icon} source={reply ? Icons.Settings.Reply : Icons.Failed} />}
+                  leading={<FormRow.Icon style={styles.icon} source={storage.reply ? Icons.Settings.Reply : Icons.Failed} />}
                   trailing={<FormSwitch
-                     value={reply}
+                     value={storage.reply}
                      onValueChange={() => {
                         storage.reply = !storage.reply;
-                        setReply(storage.reply);
                      }}
                   />}
                />
                <FormDivider />
                <FormRow
-                  label={`${userEdit ? "Editing" : "Replying to"} your own messages`}
-                  subLabel={`Allows you to tap double tap on any of your own messages to ${userEdit ? "reply to" : "edit"} them.`}
-                  onLongPress={() => Miscellaneous.displayToast(`When double tapping on any of your own messages, you can now ${userEdit ? "start an edit" : "reply to them"}!`, 'tooltip')}
-                  leading={<FormRow.Icon style={styles.icon} source={userEdit ? Icons.Settings.Edit : Icons.Settings.Reply} />}
+                  label={`${storage.userEdit ? "Editing" : "Replying to"} your own messages`}
+                  subLabel={`Allows you to tap double tap on any of your own messages to ${storage.userEdit ? "reply to" : "edit"} them.`}
+                  onLongPress={() => Miscellaneous.displayToast(`When double tapping on any of your own messages, you can now ${storage.userEdit ? "start an edit" : "reply to them"}!`, 'tooltip')}
+                  leading={<FormRow.Icon style={styles.icon} source={storage.userEdit ? Icons.Settings.Edit : Icons.Settings.Reply} />}
                   trailing={<FormSwitch
-                     value={userEdit}
+                     value={storage.userEdit}
                      onValueChange={() => {
                         storage.userEdit = !storage.userEdit;
-                        setUserEdit(storage.userEdit);
                      }}
                   />}
                />
                <FormDivider />
                <FormInput
-                  value={delay}
+                  value={storage.delay}
                   onChange={v => {
-                     storage.delay = v == "" ? 300 : Number(v)
-                     setDelay(delay)
+                     storage.delay = v
                   }}
                   placeholder={"300"}
                   title='Maximum Delay'
