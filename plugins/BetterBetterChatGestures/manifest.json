@@ -1,0 +1,14 @@
+{
+    "name": "BetterBetterChatGestures",
+    "description": "Adds several new gestures in the chat.",
+    "authors": [
+        {
+            "name": "Rosie<3, forked by MYSTRAVIL",
+            "id": "319928470849454080"
+        }
+    ],
+    "main": "src/index.tsx",
+    "vendetta": {
+        "icon": "ic_chat"
+    }
+}
