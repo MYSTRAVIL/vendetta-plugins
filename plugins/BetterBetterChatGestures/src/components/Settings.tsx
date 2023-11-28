@@ -97,6 +97,19 @@ export default () => {
                />
                <FormDivider />
                <FormRow
+                  label={`Open Keyboard Automatically`}
+                  subLabel={`Opens the Keyboard when you reply to or edit a message with a double tap.`}
+                  onLongPress={() => Miscellaneous.displayToast(`Opens the Keyboard when you reply to or edit a message with a double tap.`, 'tooltip')}
+                  leading={<FormRow.Icon style={styles.icon} source={storage.keyboardPopup ? Icons.Settings.Keyboard : Icons.Failed} />}
+                  trailing={<FormSwitch
+                     value={storage.keyboardPopup}
+                     onValueChange={() => {
+                        storage.keyboardPopup = !storage.keyboardPopup;
+                     }}
+                  />}
+               />
+               <FormDivider />
+               <FormRow
                   label={`${storage.userEdit ? "Editing" : "Replying to"} your own messages`}
                   subLabel={`Allows you to tap double tap on any of your own messages to ${storage.userEdit ? "reply to" : "edit"} them.`}
                   onLongPress={() => Miscellaneous.displayToast(`When double tapping on any of your own messages, you can now ${storage.userEdit ? "start an edit" : "reply to them"}!`, 'tooltip')}

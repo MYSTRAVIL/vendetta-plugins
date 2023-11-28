@@ -25,6 +25,7 @@ export default {
         Locale: getAssetIDByName('ic_locale_24px'),
         External: getAssetIDByName("ic_raised_hand_list"),
         Edit: getAssetIDByName("ic_edit_24px"),
-        Reply: getAssetIDByName("ic_reply_24px")
+        Reply: getAssetIDByName("ic_reply_24px"),
+        Keyboard: getAssetIDByName("ic_keyboard_24px")
     }
 };
