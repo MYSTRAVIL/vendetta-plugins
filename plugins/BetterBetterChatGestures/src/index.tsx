@@ -118,7 +118,8 @@ const BetterChatGestures: Plugin = {
                     });
                 }
 
-                ChatInputRef.openSystemKeyboard()
+                // ChatInputRef.openSystemKeyboard()
+                findByProps("openSystemKeyboard").openSystemKeyboardForLastCreatedInput()
 
                 return;
             }
@@ -130,7 +131,8 @@ const BetterChatGestures: Plugin = {
                     shouldMention: true
                 })
 
-                ChatInputRef.openSystemKeyboard()
+                // ChatInputRef.openSystemKeyboard()
+                findByProps("openSystemKeyboard").openSystemKeyboardForLastCreatedInput()
             }
 
             this.currentTapIndex = 0;
