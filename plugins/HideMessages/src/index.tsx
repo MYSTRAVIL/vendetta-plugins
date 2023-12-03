@@ -1,18 +1,17 @@
 import {findByProps} from "@vendetta/metro";
 import {FluxDispatcher} from "@vendetta/metro/common";
 import {after, before} from "@vendetta/patcher";
-import {Forms} from "@vendetta/ui/components";
 import {React} from "@vendetta/metro/common";
 import {getAssetIDByName as getAssetId} from "@vendetta/ui/assets"
 import {findInReactTree} from "@vendetta/utils"
 import Settings from "./components/Settings";
 import {storage} from "@vendetta/plugin";
 import {logger} from "@vendetta";
+import { RedesignRow } from "@nexpid/vdp-shared";
 
 let patches = [];
 
 const LazyActionSheet = findByProps("openLazy", "hideActionSheet");
-const {FormRow, FormIcon} = Forms;
 
 function onLoad() {
     logger.log("HideMessages: Index at ", storage.hideMessagesIndex);
@@ -28,9 +27,9 @@ function onLoad() {
                 if (!buttons) return
 
                 buttons.splice(storage.hideMessagesIndex || 2, 0,
-                    <FormRow
+                    <RedesignRow
                         label={"Hide Message"}
-                        leading={<FormIcon style={{opacity: 1}} source={getAssetId("ic_close_16px")}/>}
+                        icon={getAssetId("ic_close_16px")}
                         onPress={() => {
                             FluxDispatcher.dispatch({
                                 type: "MESSAGE_DELETE",

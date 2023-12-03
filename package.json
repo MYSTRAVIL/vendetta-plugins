@@ -5,6 +5,7 @@
 		"ws": "node ws-server.mjs"
 	},
 	"dependencies": {
+		"@nexpid/vdp-shared": "^1.0.2",
 		"@swc/helpers": "^0.4.14"
 	},
 	"devDependencies": {
