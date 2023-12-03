@@ -34,9 +34,10 @@ function onLoad() {
                         onPress={() => {
                             FluxDispatcher.dispatch({
                                 type: "MESSAGE_DELETE",
+                                channelId: message.channel_id,
                                 id: message.id,
                                 __vml_cleanup: true,
-                                otherPluginBypass: true,
+                                otherPluginBypass: true
                             })
                             LazyActionSheet.hideActionSheet()
                         }}
