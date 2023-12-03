@@ -1,7 +1,7 @@
-import { readFile, writeFile, readdir } from "fs/promises";
-import { createHash } from "crypto";
+import {readFile, writeFile, readdir} from "fs/promises";
+import {createHash} from "crypto";
 
-import { rollup } from "rollup";
+import {rollup} from "rollup";
 import esbuild from "rollup-plugin-esbuild";
 import commonjs from "@rollup/plugin-commonjs";
 import nodeResolve from "@rollup/plugin-node-resolve";
@@ -34,7 +34,7 @@ const plugins = [
             return result.code;
         },
     },
-    esbuild({ minify: true }),
+    esbuild({minify: true}),
 ];
 
 for (let plug of await readdir("./plugins")) {
@@ -44,7 +44,8 @@ for (let plug of await readdir("./plugins")) {
     try {
         const bundle = await rollup({
             input: `./plugins/${plug}/${manifest.main}`,
-            onwarn: () => {},
+            onwarn: () => {
+            },
             plugins,
         });
 

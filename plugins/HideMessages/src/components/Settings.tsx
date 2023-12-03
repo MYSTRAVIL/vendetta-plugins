@@ -63,7 +63,7 @@ export default () => {
          <SectionWrapper label='Preferences'>
             <View style={[styles.container]}>
                <FormInput
-                  value={storage.hideMessagesIndex || 2}
+                  value={storage.hideMessagesIndex}
                   onChange={v => {
                      storage.hideMessagesIndex = v
                   }}

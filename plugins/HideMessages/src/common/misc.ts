@@ -1,4 +1,4 @@
-import { toasts } from "@vendetta/metro/common";
+import {toasts} from "@vendetta/metro/common";
 import Icons from "./icons";
 
 type DefaultObject = { [key: string]: string | number | DefaultObject }
@@ -14,14 +14,13 @@ const shadow = (opacity: number = 0.10): DefaultObject => ({
 });
 
 const displayToast = (source: string, type: 'clipboard' | 'tooltip'): void => {
-    toasts.open({ 
-        content: type=='clipboard' ? `Copied ${source} to clipboard.` : source, 
-        source: type=='clipboard' ? Icons.Clipboard : Icons.Settings.Initial 
+    toasts.open({
+        content: type == 'clipboard' ? `Copied ${source} to clipboard.` : source,
+        source: type == 'clipboard' ? Icons.Clipboard : Icons.Settings.Initial
     });
 };
 
-export default 
-{
+export default {
     shadow,
     displayToast,
 };

@@ -1,10 +1,10 @@
-import { React, constants, stylesheet } from '@vendetta/metro/common';
-import { findByProps, findByStoreName } from '@vendetta/metro';
-import { General } from '@vendetta/ui/components';
-import { Miscellaneous, Constants } from '../../common';
-import { semanticColors } from '@vendetta/ui';
+import {React, constants, stylesheet} from '@vendetta/metro/common';
+import {findByProps, findByStoreName} from '@vendetta/metro';
+import {General} from '@vendetta/ui/components';
+import {Miscellaneous, Constants} from '../../common';
+import {semanticColors} from '@vendetta/ui';
 
-const { TouchableOpacity, View, Image, Text, Animated } = General;
+const {TouchableOpacity, View, Image, Text, Animated} = General;
 
 const Router = findByProps('transitionToGuild')
 const UserStore = findByStoreName("UserStore");
@@ -46,15 +46,15 @@ const styles = stylesheet.createThemedStyleSheet({
     }
 });
 
- /** 
-  * Main credits component.
-  * @returns {TSX ~ Fragmented View}
-  * 
-  * @property @param {string} name: The name of the plugin, which is PronounDB in this case.
-  * @property @param {string} version: The version of the plugin, this can vary.
-  * @property @param {object} plugin: Different data involving the plugin such as the plugin's base download link and build.
-  * @property @param {object}: List of authors, their Discord ID, and their GitHub profile. This will be mapped and displayed on the list.
-  */
+/**
+ * Main credits component.
+ * @returns {TSX ~ Fragmented View}
+ *
+ * @property @param {string} name: The name of the plugin, which is PronounDB in this case.
+ * @property @param {string} version: The version of the plugin, this can vary.
+ * @property @param {object} plugin: Different data involving the plugin such as the plugin's base download link and build.
+ * @property @param {object}: List of authors, their Discord ID, and their GitHub profile. This will be mapped and displayed on the list.
+ */
 export default ({name, authors}) => {
     const animatedButtonScale = React.useRef(new Animated.Value(1)).current;
 
@@ -70,8 +70,8 @@ export default ({name, authors}) => {
         useNativeDriver: true,
     }).start();
 
-    const onPress = (): void => Profiles.showUserProfile({ userId: UserStore.getCurrentUser().id });
-    
+    const onPress = (): void => Profiles.showUserProfile({userId: UserStore.getCurrentUser().id});
+
     const animatedScaleStyle = {
         transform: [
             {
@@ -79,10 +79,10 @@ export default ({name, authors}) => {
             }
         ]
     };
-    
+
     return <>
         <View style={styles.container}>
-            <TouchableOpacity 
+            <TouchableOpacity
                 onPress={onPress}
                 onPressIn={onPressIn}
                 onPressOut={onPressOut}
@@ -108,17 +108,18 @@ export default ({name, authors}) => {
                 </TouchableOpacity>
                 <View style={{flexDirection: 'row'}}>
                     <Text style={[styles.mainText, styles.subHeader]}>
-                        A project by 
+                        A project by
                     </Text>
-                    {authors.map((author: { name: string }, index: number, authorsArray: any[]) => { 
-                        return <TouchableOpacity onPress={(): void => Router.openURL(Constants.author.profile[author.name] ?? "https://github.com/")}> 
-                            <Text 
+                    {authors.map((author: { name: string }, index: number, authorsArray: any[]) => {
+                        return <TouchableOpacity
+                            onPress={(): void => Router.openURL(Constants.author.profile[author.name] ?? "https://github.com/")}>
+                            <Text
                                 style={[styles.mainText, styles.subHeader, {
                                     paddingLeft: 4,
                                     fontFamily: constants.Fonts.DISPLAY_BOLD,
                                     flexDirection: 'row'
-                            }]}>
-                                    {author.name}{index < (authorsArray.length - 1) ? "," : null}
+                                }]}>
+                                {author.name}{index < (authorsArray.length - 1) ? "," : null}
                             </Text>
                         </TouchableOpacity>
                     })}

@@ -1,8 +1,8 @@
-import { General } from "@vendetta/ui/components";
-import { constants, React, stylesheet } from "@vendetta/metro/common"
-import { semanticColors } from "@vendetta/ui";
+import {General} from "@vendetta/ui/components";
+import {constants, React, stylesheet} from "@vendetta/metro/common"
+import {semanticColors} from "@vendetta/ui";
 
-const { View, Text } = General;
+const {View, Text} = General;
 
 const styles = stylesheet.createThemedStyleSheet({
     text: {

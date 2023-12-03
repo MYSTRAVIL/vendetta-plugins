@@ -1,14 +1,14 @@
 {
-    "name": "HideMessages",
-    "description": "A Vendetta plugin for hiding messages locally.",
-    "authors": [
-        {
-            "name": "MYSTRAVIL",
-            "id": "319928470849454080"
-        }
-    ],
-    "main": "src/index.tsx",
-    "vendetta": {
-        "icon": "ic_badge_staff"
+  "name": "HideMessages",
+  "description": "A Vendetta plugin for hiding messages locally.",
+  "authors": [
+    {
+      "name": "MYSTRAVIL",
+      "id": "319928470849454080"
     }
+  ],
+  "main": "src/index.tsx",
+  "vendetta": {
+    "icon": "ic_badge_staff"
+  }
 }

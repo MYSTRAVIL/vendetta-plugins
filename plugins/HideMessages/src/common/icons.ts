@@ -1,18 +1,18 @@
 /**
  * @param getAssetIDByName: Fetches the ID of an icon based on its name.
  */
-import { getAssetIDByName } from "@vendetta/ui/assets";
+import {getAssetIDByName} from "@vendetta/ui/assets";
 
-/** 
+/**
  * Icons used throughout PronounDB, available in a single place for ease of use.
  * @param {object} Icons: Object of Icons which are grouped by their place of use.
  */
 export default {
     Failed: getAssetIDByName('Small'),
-    Delete:  getAssetIDByName('ic_message_delete'),
-    Copy:  getAssetIDByName('toast_copy_link'),
-    Open:  getAssetIDByName('ic_leave_stage'),
-    Clipboard:  getAssetIDByName('pending-alert'),
+    Delete: getAssetIDByName('ic_message_delete'),
+    Copy: getAssetIDByName('toast_copy_link'),
+    Open: getAssetIDByName('ic_leave_stage'),
+    Clipboard: getAssetIDByName('pending-alert'),
     Clock: getAssetIDByName('clock'),
     Forum: getAssetIDByName('ic_forum_channel'),
     Settings: {
