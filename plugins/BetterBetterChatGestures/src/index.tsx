@@ -19,7 +19,7 @@ const BetterChatGestures: Plugin = {
     unpatchGetter: null,
     unpatchHandlers: null,
     currentTapIndex: 0,
-    currentMessageAuthor: null,
+    currentMessageID: null,
 
     doubleTapState({ state = "UNKNOWN", nativeEvent }: DoubleTapStateProps) {
         const stateObject = {
@@ -79,14 +79,14 @@ const BetterChatGestures: Plugin = {
 
             let timeoutTap = setTimeout(() => {
                 this.currentTapIndex = 0;
-                this.currentMessageAuthor = null;
+                this.currentMessageID = null;
             }, Number(storage.delay));
             //    ^ oh my god
 
             const channel = ChannelStore.getChannel(ChannelID);
             const message = MessageStore.getMessage(ChannelID, MessageID);
 
-            if (this.currentTapIndex === 1) this.currentMessageAuthor = message.author.id
+            if (this.currentTapIndex === 1) this.currentMessageID = MessageID
 
             Object.assign(nativeEvent, {
                 taps: this.currentTapIndex,
@@ -95,7 +95,7 @@ const BetterChatGestures: Plugin = {
                 isAuthor: message?.author?.id === UserStore.getCurrentUser()?.id
             });
 
-            if (this.currentTapIndex !== 2 || this.currentMessageAuthor !== message.author.id)
+            if (this.currentTapIndex !== 2 || this.currentMessageID !== MessageID)
                 return this.doubleTapState({
                     state: "INCOMPLETE",
                     nativeEvent
@@ -136,7 +136,7 @@ const BetterChatGestures: Plugin = {
             }
 
             this.currentTapIndex = 0;
-            this.currentMessageAuthor = null;
+            this.currentMessageID = null;
             this.doubleTapState({
                 state: "COMPLETE",
                 nativeEvent
