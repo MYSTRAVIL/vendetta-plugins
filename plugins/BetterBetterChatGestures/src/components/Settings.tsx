@@ -111,7 +111,7 @@ export default () => {
                <FormDivider />
                <FormRow
                   label={`${storage.userEdit ? "Editing" : "Replying to"} your own messages`}
-                  subLabel={`Allows you to tap double tap on any of your own messages to ${storage.userEdit ? "reply to" : "edit"} them.`}
+                  subLabel={`Allows you to tap double tap on any of your own messages to ${storage.userEdit ? "edit" : "reply to"} them.`}
                   onLongPress={() => Miscellaneous.displayToast(`When double tapping on any of your own messages, you can now ${storage.userEdit ? "start an edit" : "reply to them"}!`, 'tooltip')}
                   leading={<FormRow.Icon style={styles.icon} source={storage.userEdit ? Icons.Settings.Edit : Icons.Settings.Reply} />}
                   trailing={<FormSwitch
