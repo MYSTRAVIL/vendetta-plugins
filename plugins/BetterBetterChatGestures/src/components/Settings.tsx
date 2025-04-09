@@ -9,58 +9,67 @@ import { Icons, Miscellaneous, Constants } from "../common";
 import { findByProps } from '@vendetta/metro';
 import { semanticColors } from '@vendetta/ui';
 import { ReactNative } from '@vendetta/metro/common';
-import { getDebugInfo } from '@vendetta/debug';
 
 const { FormRow, FormSwitch, FormDivider, FormInput, FormText } = Forms;
 const { ScrollView, View, Text } = General;
 
-const Router = findByProps('transitionToGuild', "openURL")
+const Router = findByProps('transitionToGuild', "openURL");
 
 const styles = stylesheet.createThemedStyleSheet({
-   icon: {
-      color: semanticColors.INTERACTIVE_NORMAL
-   },
-   item: {
-      color: semanticColors.TEXT_MUTED,
-      fontFamily: constants.Fonts.PRIMARY_MEDIUM
-   },
-   container: {
-      width: '90%',
-      marginLeft: '5%',
-      borderRadius: 10,
-      backgroundColor: semanticColors.BACKGROUND_MOBILE_SECONDARY,
-      ...Miscellaneous.shadow()
-   },
-   subheaderText: {
-      color: semanticColors.HEADER_SECONDARY,
-      textAlign: 'center',
-      margin: 10,
-      marginBottom: 50,
-      letterSpacing: 0.25,
-      fontFamily: constants.Fonts.PRIMARY_BOLD,
-      fontSize: 14
-   },
-   image: {
-      width: "100%",
-      maxWidth: 350,
-      borderRadius: 10
-   }
+	icon: {
+		color: semanticColors.INTERACTIVE_NORMAL
+	},
+	item: {
+		color: semanticColors.TEXT_MUTED,
+		fontFamily: constants.Fonts.PRIMARY_MEDIUM
+	},
+	container: {
+		width: '90%',
+		marginLeft: '5%',
+		borderRadius: 10,
+		backgroundColor: semanticColors.BACKGROUND_MOBILE_SECONDARY,
+		...Miscellaneous.shadow()
+	},
+	subheaderText: {
+		color: semanticColors.HEADER_SECONDARY,
+		textAlign: 'center',
+		margin: 10,
+		marginBottom: 50,
+		letterSpacing: 0.25,
+		fontFamily: constants.Fonts.PRIMARY_BOLD,
+		fontSize: 14
+	},
+	image: {
+		width: "100%",
+		maxWidth: 350,
+		borderRadius: 10
+	}
 });
 
 /**
- * Main @arg Settings page implementation
- * @param manifest: The main plugin manifest passed donw as a prop.
+ * Main Settings page implementation
  */
 export default () => {
-   useProxy(storage);
-
-   // const [tapUsernameMention, setTapUsernameMention] = React.useState(storage.tapUsernameMention);
-   // const [reply, setReply] = React.useState(storage.reply);
-   // const [userEdit, setUserEdit] = React.useState(storage.userEdit);
-   // const [delay, setDelay] = React.useState(storage.delay);
-   const isAndroid = ReactNative.Platform.OS === "android"
-
-   return <ScrollView>
+	// Initialize default storage values if not set
+	if (storage.tapUsernameMention === undefined) storage.tapUsernameMention = false;
+	if (storage.reply === undefined) storage.reply = true;
+	if (storage.userEdit === undefined) storage.userEdit = true;
+	if (storage.keyboardPopup === undefined) storage.keyboardPopup = true;
+	if (storage.delay === undefined) storage.delay = "300";
+	
+	useProxy(storage);
+	
+	const isAndroid = ReactNative.Platform.OS === "android";
+	
+	// Validate delay input to ensure it's a number
+	const handleDelayChange = (value) => {
+		// Only allow numeric input
+		if (/^\d*$/.test(value)) {
+			storage.delay = value;
+		}
+	};
+	
+	return <ScrollView>
       <Credits 
          name={manifest.name}
          authors={manifest.authors}
@@ -69,8 +78,8 @@ export default () => {
          <SectionWrapper label='Preferences'>
             <View style={[styles.container]}>
                <FormRow
-                  label="Tap Username to Mention"
-                  subLabel={`Allows you to tap on a username to mention them instead of opening their profile.${isAndroid ? "This option is disabled on Android." : ""}`}
+                  label={`Tap Username to Mention`}
+                  subLabel={`Allows you to tap on a username to mention them instead of opening their profile.${isAndroid ? " This option is disabled on Android." : ""}`}
                   onLongPress={() => Miscellaneous.displayToast(`By default, Discord opens a profile when tapping on a username in chat. With this, it now mentions them, like on Android.`, 'tooltip')}
                   leading={<FormRow.Icon style={styles.icon} source={storage.tapUsernameMention ? Icons.Forum : Icons.Failed} />}
                   trailing={<FormSwitch
@@ -85,8 +94,8 @@ export default () => {
                <FormDivider />
                <FormRow
                   label={`Double Tap To Reply`}
-                  subLabel={`Allows you to tap double tap on any messages to reply to them.`}
-                  onLongPress={() => Miscellaneous.displayToast(`When double tapping on any messages, you can now reply to them!`, 'tooltip')}
+                  subLabel={`Allows you to double tap on any messages to reply to them.`}
+                  onLongPress={() => Miscellaneous.displayToast(`Double tapping any message allows you to reply to them!`, 'tooltip')}
                   leading={<FormRow.Icon style={styles.icon} source={storage.reply ? Icons.Settings.Reply : Icons.Failed} />}
                   trailing={<FormSwitch
                      value={storage.reply}
@@ -110,10 +119,10 @@ export default () => {
                />
                <FormDivider />
                <FormRow
-                  label={`${storage.userEdit ? "Editing" : "Replying to"} your own messages`}
-                  subLabel={`Allows you to tap double tap on any of your own messages to ${storage.userEdit ? "reply to" : "edit"} them.`}
-                  onLongPress={() => Miscellaneous.displayToast(`When double tapping on any of your own messages, you can now ${storage.userEdit ? "start an edit" : "reply to them"}!`, 'tooltip')}
-                  leading={<FormRow.Icon style={styles.icon} source={storage.userEdit ? Icons.Settings.Edit : Icons.Settings.Reply} />}
+                  label={`Double tap to Edit`}
+                  subLabel={`Allows you to double tap on any of your own messages to edit them.`}
+                  onLongPress={() => Miscellaneous.displayToast('When double tapping on any of your own messages, you can now start an edit!', 'tooltip')}
+                  leading={<FormRow.Icon style={styles.icon} source={Icons.Settings.Edit} />}
                   trailing={<FormSwitch
                      value={storage.userEdit}
                      onValueChange={() => {
@@ -124,11 +133,10 @@ export default () => {
                <FormDivider />
                <FormInput
                   value={storage.delay}
-                  onChange={v => {
-                     storage.delay = v
-                  }}
+                  onChange={handleDelayChange}
                   placeholder={"300"}
                   title='Maximum Delay'
+                  keyboardType="numeric"
                />
                <FormDivider />
                <FormText style={{ padding: 10 }}>
@@ -150,7 +158,7 @@ export default () => {
          </SectionWrapper>
       </View>
       <Text style={styles.subheaderText}>
-         {`Build: (${manifest.hash.substring(0, 8)})`}
+         {`Build: (${manifest.hash?.substring(0, 8) || 'dev'}`}
       </Text>
    </ScrollView>
 }
