@@ -78,7 +78,7 @@ export default () => {
          <SectionWrapper label='Preferences'>
             <View style={[styles.container]}>
                <FormRow
-                  label={`Tap Username to Mention`}
+                  label="Tap Username to Mention"
                   subLabel={`Allows you to tap on a username to mention them instead of opening their profile.${isAndroid ? " This option is disabled on Android." : ""}`}
                   onLongPress={() => Miscellaneous.displayToast(`By default, Discord opens a profile when tapping on a username in chat. With this, it now mentions them, like on Android.`, 'tooltip')}
                   leading={<FormRow.Icon style={styles.icon} source={storage.tapUsernameMention ? Icons.Forum : Icons.Failed} />}
@@ -95,7 +95,7 @@ export default () => {
                <FormRow
                   label={`Double Tap To Reply`}
                   subLabel={`Allows you to double tap on any messages to reply to them.`}
-                  onLongPress={() => Miscellaneous.displayToast(`Double tapping any message allows you to reply to them!`, 'tooltip')}
+                  onLongPress={() => Miscellaneous.displayToast(`Double tapping any ones message allows you to reply to them!`, 'tooltip')}
                   leading={<FormRow.Icon style={styles.icon} source={storage.reply ? Icons.Settings.Reply : Icons.Failed} />}
                   trailing={<FormSwitch
                      value={storage.reply}
@@ -119,10 +119,10 @@ export default () => {
                />
                <FormDivider />
                <FormRow
-                  label={`Double tap to Edit`}
-                  subLabel={`Allows you to double tap on any of your own messages to edit them.`}
-                  onLongPress={() => Miscellaneous.displayToast('When double tapping on any of your own messages, you can now start an edit!', 'tooltip')}
-                  leading={<FormRow.Icon style={styles.icon} source={Icons.Settings.Edit} />}
+                  label={`${storage.userEdit ? "Double tap to edit" : "Double tap to reply to"} your own messages`}
+                  subLabel={`Allows you to double tap on any of your own messages to ${storage.userEdit ? "edit" : "reply to"} them.`}
+                  onLongPress={() => Miscellaneous.displayToast(`When double tapping on any of your own messages, you can now ${storage.userEdit ? "edit them" : "reply to them"}!`, 'tooltip')}
+                  leading={<FormRow.Icon style={styles.icon} source={storage.userEdit ? Icons.Settings.Edit : Icons.Settings.Reply} />}
                   trailing={<FormSwitch
                      value={storage.userEdit}
                      onValueChange={() => {
