@@ -95,7 +95,7 @@ export default () => {
                <FormRow
                   label={`Double Tap To Reply`}
                   subLabel={`Allows you to double tap on any messages to reply to them.`}
-                  onLongPress={() => Miscellaneous.displayToast(`Double tapping any ones message allows you to reply to them!`, 'tooltip')}
+                  onLongPress={() => Miscellaneous.displayToast(`Double tapping anyones message allows you to reply to them!`, 'tooltip')}
                   leading={<FormRow.Icon style={styles.icon} source={storage.reply ? Icons.Settings.Reply : Icons.Failed} />}
                   trailing={<FormSwitch
                      value={storage.reply}
